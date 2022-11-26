@@ -9,6 +9,7 @@ import storage from '@react-native-firebase/storage';
 export default function Currency() {
   const [currency, setCurrency] = useState('');
   const [exchangeRate, setExchangeRate] = useState('');
+  const [image, setImage] = useState();
 
   const userSignOut = async() => {
     try {
@@ -21,9 +22,34 @@ export default function Currency() {
 
   const openCamera = async() => {
     await launchCamera({ quality: 0.5 }, (result) => {
-      if (result.errorCode) {
+      if (result.errorCode ) {
         console.log(result.errorCode);
       }
+
+      const img = result.assets[0];
+      const uploadTask = storage()
+        .ref()
+        .child(`/items/${Date.now()}`)
+        .putFile(img.uri);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if (progress == 100) {
+            Alert.alert('Uploaded Image');
+          }
+        },
+        (error) => {
+          console.log(error);
+          Alert.alert('Something went wrong. Please try again later.');
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            setImage(downloadURL);
+          });
+        },
+      );
     });
   }
 
@@ -69,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    marginHorizontal: 15,
   },
   input: {
     height: 35,

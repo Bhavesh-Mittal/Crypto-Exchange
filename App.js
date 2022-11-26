@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Currency from './components/Currency';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Currency from './components/Currency';
 import auth from '@react-native-firebase/auth';
 
 const Tab = createBottomTabNavigator();
