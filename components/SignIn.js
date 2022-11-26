@@ -23,8 +23,19 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} mode="outlined" label="Email" onChangeText={ txt => setEmail(txt) } />
-      <TextInput style={styles.input} mode="outlined" label="Password" secureTextEntry={ true } onChangeText={ txt => setPassword(txt) } />
+      <TextInput
+        style={styles.input}
+        mode="outlined"
+        label="Email"
+        onChangeText={ txt => setEmail(txt) }
+      />
+      <TextInput
+        style={styles.input}
+        mode="outlined"
+        label="Password"
+        secureTextEntry={ true }
+        onChangeText={ txt => setPassword(txt) }
+      />
       <Button mode="contained" onPress={ () => userSignIn() }>Sign In</Button>
     </View>
   );
