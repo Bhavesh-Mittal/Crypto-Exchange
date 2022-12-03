@@ -52,6 +52,7 @@ export default function PostScreen() {
         .add({
           currency: currency,
           exchangeRate: exchangeRate,
+          image: image,
           uid: auth().currentUser.uid,
         })
         .then(() => {
@@ -83,7 +84,7 @@ export default function PostScreen() {
         disabled={currency && exchangeRate ? false : true}
         onPress={() => sendPost()}
         style={styles.btn}>
-        Send
+        Post
       </Button>
       <Button mode="contained" onPress={() => openCamera()} style={styles.btn}>
         Open Camera

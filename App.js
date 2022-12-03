@@ -8,24 +8,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import auth from '@react-native-firebase/auth';
 
-const Tab1 = createBottomTabNavigator();
-const Tab2 = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Tab1.Navigator>
-      <Tab1.Screen name="Sign Up" component={SignUp} />
-      <Tab1.Screen name="Sign In" component={SignIn} />
-    </Tab1.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Sign Up" component={SignUp} />
+      <Tab.Screen name="Sign In" component={SignIn} />
+    </Tab.Navigator>
   );
 };
 
 const CryptoNavigator = () => {
   return (
-    <Tab2.Navigator>
-      <Tab2.Screen name="Post" component={PostScreen} />
-      <Tab2.Screen name="Crypto Currency" component={Currency} />
-    </Tab2.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Post" component={PostScreen} />
+      <Tab.Screen name="Crypto Currency" component={Currency} />
+    </Tab.Navigator>
   );
 };
 

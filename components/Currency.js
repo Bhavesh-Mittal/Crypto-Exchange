@@ -1,22 +1,41 @@
-import { Text, View, StyleSheet, Alert } from 'react-native';
-import { Button } from 'react-native-paper';
-import auth from '@react-native-firebase/auth';
+import { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { Card, Title } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
 
 export default function Currency() {
-  const userSignOut = async () => {
-    try {
-      await auth().signOut();
-      console.log('User logged out !');
-    } catch (err) {
-      Alert.alert('Something went wrong. Please try again later.');
-    }
+  const [items, setItems] = useState('');
+
+  const renderItem = ({ item }) => {
+    return (
+      <Card style={styles.card}>
+        <Card.Cover source={{ uri: item.image }} />
+        <Card.Content>
+          <Title>
+            1 {item.currency} = ${item.exchangeRate}
+          </Title>
+        </Card.Content>
+      </Card>
+    );
   };
+
+  const getDetails = async () => {
+    const querySnap = await firestore().collection('exchange').get();
+    const result = querySnap.docs.map((docSnap) => docSnap.data());
+    setItems(result);
+  };
+
+  useEffect(() => {
+    getDetails();
+  });
 
   return (
     <View style={styles.container}>
-      <Button mode="contained" onPress={() => userSignOut()}>
-        Sign Out
-      </Button>
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.image}
+      />
     </View>
   );
 }
@@ -24,7 +43,12 @@ export default function Currency() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  btn: {
+    alignSelf: 'center',
+  },
+  card: {
+    marginTop: 10,
   },
 });
