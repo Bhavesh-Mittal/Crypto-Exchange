@@ -2,29 +2,30 @@ import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import PostScreen from './components/PostScreen';
 import Currency from './components/Currency';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import auth from '@react-native-firebase/auth';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab1 = createBottomTabNavigator();
+const Tab2 = createBottomTabNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Sign Up" component={SignUp} />
-      <Tab.Screen name="Sign In" component={SignIn} />
-    </Tab.Navigator>
+    <Tab1.Navigator>
+      <Tab1.Screen name="Sign Up" component={SignUp} />
+      <Tab1.Screen name="Sign In" component={SignIn} />
+    </Tab1.Navigator>
   );
 };
 
 const CryptoNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Crypto Exchange" component={Currency} />
-    </Stack.Navigator>
+    <Tab2.Navigator>
+      <Tab2.Screen name="Post" component={PostScreen} />
+      <Tab2.Screen name="Crypto Currency" component={Currency} />
+    </Tab2.Navigator>
   );
 };
 
@@ -37,7 +38,7 @@ const Navigator = () => {
       } else {
         setUser('');
       }
-    })
+    });
   }, []);
 
   return (
@@ -58,5 +59,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
+  },
 });

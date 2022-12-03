@@ -7,19 +7,14 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const userSignIn = async() => {
-    if (!email && !password) {
-      Alert.alert('Please fill all the fields');
-      return;
-    }
-
+  const userSignIn = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
       console.log('User signed in !');
-    } catch(err) {
-      Alert.alert('Something went wrong. Please try again later.')
+    } catch (err) {
+      Alert.alert('Something went wrong. Please try again later.');
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -27,16 +22,22 @@ export default function SignIn() {
         style={styles.input}
         mode="outlined"
         label="Email"
-        onChangeText={ txt => setEmail(txt) }
+        onChangeText={(txt) => setEmail(txt)}
       />
       <TextInput
         style={styles.input}
         mode="outlined"
         label="Password"
-        secureTextEntry={ true }
-        onChangeText={ txt => setPassword(txt) }
+        secureTextEntry={true}
+        onChangeText={(txt) => setPassword(txt)}
       />
-      <Button mode="contained" onPress={ () => userSignIn() }>Sign In</Button>
+      <Button
+        mode="contained"
+        onPress={() => userSignIn()}
+        disabled={email && password ? false : true}
+        style={styles.btn}>
+        Sign In
+      </Button>
     </View>
   );
 }
@@ -50,5 +51,8 @@ const styles = StyleSheet.create({
   input: {
     height: 35,
     marginBottom: 10,
+  },
+  btn: {
+    alignSelf: 'center',
   },
 });
